@@ -1,0 +1,4 @@
+.vs
+builds
+MachOParser/intermediate
+MachOParser/MachOParser.vcxproj.user
