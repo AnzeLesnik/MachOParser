@@ -1,4 +1,4 @@
-#include "Mach-O Binary.hpp"
+#include "Binary.hpp"
 
 #include "Mach-O.hpp"
 

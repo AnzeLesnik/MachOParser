@@ -53,3 +53,8 @@ union MachOHeader {
 		mach_header_64 mach64Header;
 	};
 };
+
+constexpr auto swapEndianness(const std::uint32_t value) {
+	const auto temp = (value << 8 & 0xFF00FF00) | (value >> 8 & 0x00FF00FF);
+	return temp << 16 | temp >> 16;
+}

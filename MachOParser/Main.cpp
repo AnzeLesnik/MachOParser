@@ -1,5 +1,5 @@
 #include "Mach-O/Mach-O.hpp"
-#include "Mach-O/Mach-O Binary.hpp"
+#include "Mach-O/Binary.hpp"
 #include "Declarations.hpp"
 
 #include <cstddef>

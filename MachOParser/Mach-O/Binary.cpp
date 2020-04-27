@@ -1,4 +1,4 @@
-#include "Mach-O Binary.hpp"
+#include "Binary.hpp"
 
 #include "Mach-O.hpp"
 
@@ -33,10 +33,11 @@ std::vector<MachOArch*> MachOBinary::headers() const {
 
 	const auto fatArchArray = reinterpret_cast<fat_arch*>(reinterpret_cast<std::uintptr_t>(header) + sizeof(fat_header));
 	// Fat header is big-endian by default in all binaries
-	for (std::size_t i {}; i < (endian ? _byteswap_ulong(header->fatHeader.nfat_arch) : header->fatHeader.nfat_arch); ++i) {
+	const auto archCount = endian ? swapEndianness(header->fatHeader.nfat_arch) : header->fatHeader.nfat_arch;
+	for (std::size_t i {}; i < archCount; ++i) {
 		const auto fatArch = &fatArchArray[i];
 		const auto archHeader = reinterpret_cast<MachOArch*>(binary +
-			static_cast<std::uintptr_t>(endian ? _byteswap_ulong(fatArch->offset) : fatArch->offset));
+			static_cast<std::uintptr_t>(endian ? swapEndianness(fatArch->offset) : fatArch->offset));
 		if (reinterpret_cast<std::uintptr_t>(archHeader) > reinterpret_cast<std::uintptr_t>(_binary.data() + _binary.size()))
 			continue;
 		

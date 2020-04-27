@@ -161,13 +161,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Declarations.cpp" />
-    <ClCompile Include="Mach-O\Mach-O Arch.cpp" />
-    <ClCompile Include="Mach-O\Mach-O Binary.cpp" />
+    <ClCompile Include="Mach-O\Arch.cpp" />
+    <ClCompile Include="Mach-O\Binary.cpp" />
     <ClCompile Include="Main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Declarations.hpp" />
-    <ClInclude Include="Mach-O\Mach-O Binary.hpp" />
+    <ClInclude Include="Mach-O\Binary.hpp" />
     <ClInclude Include="Mach-O\Mach-O.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
