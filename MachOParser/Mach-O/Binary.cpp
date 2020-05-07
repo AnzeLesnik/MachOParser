@@ -3,6 +3,7 @@
 #include "Mach-O.hpp"
 
 using namespace MachO;
+using namespace Apple;
 
 bool MachOBinary::valid() const {
 	const auto magic = *reinterpret_cast<std::uint32_t*>(_binary.data());
@@ -15,16 +16,16 @@ bool MachOBinary::fat() const {
 	return header->magic == FAT_MAGIC || header->magic == FAT_CIGAM;
 }
 
-std::vector<MachOArch*> MachOBinary::headers() const {
+std::vector<MachOArch*> MachOBinary::architectures() const {
 	const auto binary = _binary.data();
 
 	auto header = reinterpret_cast<MachOHeader*>(const_cast<char*>(binary));
-	std::vector<MachOArch*> headers {};
+	std::vector<MachOArch*> architectures {};
 
-	// If binary is fat, iterate through the fat_arch array and return all the architectures headers
+	// If the binary is fat, iterate through the fat_arch array and return all the architectures headers
 	if (!fat()) {
-		headers.emplace_back(reinterpret_cast<MachOArch*>(header));
-		return headers;
+		architectures.emplace_back(reinterpret_cast<MachOArch*>(header));
+		return architectures;
 	}
 
 	// Get the current systems endianness (1 if little-endian, 0 if big-endian)
@@ -44,8 +45,8 @@ std::vector<MachOArch*> MachOBinary::headers() const {
 		if (!archHeader->valid())
 			continue;;
 
-		headers.emplace_back(archHeader);
+		architectures.emplace_back(archHeader);
 	}
 
-	return headers;
+	return architectures;
 }

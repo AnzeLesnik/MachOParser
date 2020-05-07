@@ -2,6 +2,8 @@
 
 #include "Mach-O/Mach-O.hpp"
 
+using namespace Apple;
+
 std::string_view Declarations::headerName(const std::uint32_t headerMagic) {
 	switch (headerMagic) {
 	case FAT_MAGIC:

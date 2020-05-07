@@ -58,11 +58,18 @@ int main(const int argc, const char *argv[]) {
 		return 1;
 	}
 
-	const auto headers = machoBinary.headers();
-	for (const auto header : headers) {
-		std::wprintf(L"[!] %hs (%hs-endian) at offset 0x%p\n", Declarations::headerName(reinterpret_cast<MachOHeader*>(header)->magic).data(),
-			header->littleEndian() ? "little" : "big",
-			reinterpret_cast<void*>(reinterpret_cast<std::uintptr_t>(header) - reinterpret_cast<std::uintptr_t>(fileBuffer.data())));
+	const auto architectures = machoBinary.architectures();
+	for (const auto architecture : architectures) {
+		std::wprintf(L"[!] %hs (%hs-endian) at offset 0x%p\n", Declarations::headerName(reinterpret_cast<MachOHeader*>(architecture)->magic).data(),
+			architecture->littleEndian() ? "little" : "big",
+			reinterpret_cast<void*>(reinterpret_cast<std::uintptr_t>(architecture) - reinterpret_cast<std::uintptr_t>(fileBuffer.data())));
+		std::wprintf(L"\tNumber of load commands: %i\n", architecture->loadCommandsCount());
+
+		const auto commands = architecture->loadCommands();
+		for (const auto command : commands) {
+			std::wprintf(L"\t\t load command (offset: 0x%p)\n",
+				reinterpret_cast<void*>(reinterpret_cast<std::uintptr_t>(command) - reinterpret_cast<std::uintptr_t>(fileBuffer.data())));
+		}
 	}
 
 	return 0;
