@@ -60,9 +60,10 @@ int main(const int argc, const char *argv[]) {
 
 	const auto architectures = machoBinary.architectures();
 	for (const auto architecture : architectures) {
-		std::wprintf(L"[!] %hs (%hs-endian) at offset 0x%p\n", Declarations::headerName(reinterpret_cast<MachOHeader*>(architecture)->magic).data(),
-			architecture->littleEndian() ? "little" : "big",
-			reinterpret_cast<void*>(reinterpret_cast<std::uintptr_t>(architecture) - reinterpret_cast<std::uintptr_t>(fileBuffer.data())));
+		std::wprintf(L"[!] %hs (%hs, %hs-endian)\n",
+			Declarations::headerName(architecture->architecture()).data(),
+			Declarations::architectureName(architecture->architecture()).data(),
+			architecture->endianness() == MachO::Endianness::LittleEndian ? "little" : "big");
 		std::wprintf(L"\tNumber of load commands: %i\n", architecture->loadCommandsCount());
 
 		const auto commands = architecture->loadCommands();

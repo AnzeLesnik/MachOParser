@@ -161,7 +161,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Declarations.cpp" />
-    <ClCompile Include="Mach-O\Arch.cpp" />
+    <ClCompile Include="Mach-O\Architecture.cpp" />
     <ClCompile Include="Mach-O\Binary.cpp" />
     <ClCompile Include="Main.cpp" />
   </ItemGroup>
@@ -169,6 +169,7 @@
     <ClInclude Include="Declarations.hpp" />
     <ClInclude Include="Mach-O\Binary.hpp" />
     <ClInclude Include="Mach-O\Mach-O.hpp" />
+    <ClInclude Include="Mach-O\Utilities.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

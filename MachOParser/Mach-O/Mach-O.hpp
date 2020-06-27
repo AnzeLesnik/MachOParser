@@ -4,12 +4,26 @@
 #include <cstdint>
 
 namespace Apple {
-	constexpr auto FAT_MAGIC   = 0xCAFEBABE;
-	constexpr auto FAT_CIGAM   = 0xBEBAFECA;
-	constexpr auto MH_MAGIC    = 0xFEEDFACE;
-	constexpr auto MH_CIGAM    = 0xCEFAEDFE;
-	constexpr auto MH_MAGIC_64 = 0xFEEDFACF;
-	constexpr auto MH_CIGAM_64 = 0xCFFAEDFE;
+	// header magic
+	constexpr auto FAT_MAGIC   {0xCAFEBABE};
+	constexpr auto FAT_CIGAM   {0xBEBAFECA};
+	constexpr auto MH_MAGIC    {0xFEEDFACE};
+	constexpr auto MH_CIGAM    {0xCEFAEDFE};
+	constexpr auto MH_MAGIC_64 {0xFEEDFACF};
+	constexpr auto MH_CIGAM_64 {0xCFFAEDFE};
+
+	// CPU type
+	constexpr auto CPU_ARCH_ABI64 {0x1000000};
+	
+	constexpr auto CPU_TYPE_ANY        {-1};
+	constexpr auto CPU_TYPE_X86        {7};
+	constexpr auto CPU_TYPE_X86_64     {CPU_TYPE_X86 | CPU_ARCH_ABI64};
+	constexpr auto CPU_TYPE_MC98000    {10};
+	constexpr auto CPU_TYPE_ARM        {12};
+	constexpr auto CPU_TYPE_ARM64      {CPU_TYPE_ARM | CPU_ARCH_ABI64};
+	constexpr auto CPU_TYPE_SPARC      {14};
+	constexpr auto CPU_TYPE_POWERPC    {18};
+	constexpr auto CPU_TYPE_POWERPC64  {CPU_TYPE_POWERPC | CPU_ARCH_ABI64};
 	
 	struct fat_header {
 		std::uint32_t magic;
@@ -59,8 +73,3 @@ union MachOHeader {
 		Apple::mach_header_64 mach64Header;
 	};
 };
-
-constexpr auto swapEndianness(const std::uint32_t value) {
-	const auto temp = (value << 8 & 0xFF00FF00) | (value >> 8 & 0x00FF00FF);
-	return temp << 16 | temp >> 16;
-}

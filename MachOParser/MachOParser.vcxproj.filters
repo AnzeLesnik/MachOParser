@@ -3,12 +3,13 @@
   <ItemGroup>
     <ClCompile Include="Declarations.cpp" />
     <ClCompile Include="Main.cpp" />
-    <ClCompile Include="Mach-O\Arch.cpp" />
     <ClCompile Include="Mach-O\Binary.cpp" />
+    <ClCompile Include="Mach-O\Architecture.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Declarations.hpp" />
     <ClInclude Include="Mach-O\Mach-O.hpp" />
     <ClInclude Include="Mach-O\Binary.hpp" />
+    <ClInclude Include="Mach-O\Utilities.hpp" />
   </ItemGroup>
 </Project>
